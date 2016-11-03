@@ -1,0 +1,14 @@
+/***********
+
+Main style scss 
+
+To import local styles use: 
+@import "scss/template_local_style.scss"; 
+
+To import common partial styles use: 
+@import "../../templates_common/scss/template_common_style.scss" 
+
+************/
+
+// Importing general reset rules
+@import "../../templates_common/scss/reset.scss" 
