@@ -31,10 +31,10 @@ node_modules
 jspm_packages
 
 # Distribution directories
-dist
+dist/
 
 # Templates
-templates
+templates/
 
 # Optional npm cache directory
 .npm
