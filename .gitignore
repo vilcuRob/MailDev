@@ -30,11 +30,8 @@ build/Release
 node_modules
 jspm_packages
 
-# Distribution directories
-dist/
-
-# Templates
-templates/
+dist/**
+templates/**
 
 # Optional npm cache directory
 .npm
