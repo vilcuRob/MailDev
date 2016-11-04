@@ -1,0 +1,1 @@
+# GLOBAL Templates working folder

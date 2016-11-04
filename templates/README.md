@@ -1,1 +1,1 @@
-# Template working folder
+# LOCAL Templates working folder
