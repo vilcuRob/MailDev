@@ -8,7 +8,8 @@ var express = require('express'),
     handlebars = require('gulp-compile-handlebars'),
     rename = require('gulp-rename'),
     sass = require('gulp-sass'),
-    inlineCss = require('gulp-inline-css');
+    inlineCss = require('gulp-inline-css'),
+    inject = require('gulp-inject-string');
 
 var i = 0;
 var newTemp = false;
@@ -62,15 +63,26 @@ if (!fs.existsSync('./templates/' + args.start)) {
             newTemp = true;
 
             mkdirp('./templates/' + args.new + '/', function () {
-                fs.writeFile('./templates/' + args.new + '/style.scss', '', function(){
-                    fs.writeFile('./templates/' + args.new + '/data.json', '{\r\n\t"versions":\r\n\t\t[\r\n\t\t\t{\r\n\t\t\t\t\r\n\t\t\t}\r\n\t\t]\r\n}', function(){
-                        fs.writeFile('./templates/' + args.new + '/index.hbs', '', function(){
-                            console.log('Template was created! Use "gulp --start '+template+'" to preview the template.');
-                            process.exit();
+                mkdirp('./templates/' + args.new + '/scss/', function () {
+                    fs.writeFile('./templates/' + args.new + '/scss/partials.scss', '', function(){
+                        fs.writeFile('./templates/' + args.new + '/style.scss', '@import \'../../templates/'+template+'/scss/partials.scss\';', function(){
+                            fs.writeFile('./templates/' + args.new + '/data.json', '{\r\n\t"versions":\r\n\t\t[\r\n\t\t\t{\r\n\t\t\t\t\r\n\t\t\t}\r\n\t\t]\r\n}', function(){
+                                fs.writeFile('./templates/' + args.new + '/index.hbs', '{{>html_start}}\r\n{{>html_end}}', function(){
+                                    
+                                    // Create distribution empty file
+                                    mkdirp('./dist/' + args.new + '/', function () {
+                                        fs.writeFile('./dist/' + args.new + '/style.css', 'body{background-color:#fff;}', function(){
+                                            fs.writeFile('./dist/' + args.new + '/v0.html', '');
+                                            console.log('Template was created! Use "gulp --start '+template+'" to preview the template.');
+                                            process.exit();
+                                        });
+                                    });
+                                    
+                                });
+                            });
                         });
                     });
                 });
-
             });
             
 
@@ -90,9 +102,6 @@ if (!fs.existsSync('./templates/' + args.start)) {
     var jh = require('./json_helpers');
     var totalPartials = jh.getJsonPartials(template).length;
     
-    console.log(jh.getPartialsArrayPath())
-
-    
     var buildHtml = function () {
 
         templateData = jh.getJsonPartials(template)[i];
@@ -107,6 +116,7 @@ if (!fs.existsSync('./templates/' + args.start)) {
 
         return gulp.src('templates/' + template + '/index.hbs')
             .pipe(handlebars(templateData, options))
+            .pipe(inject.after('<body>','<style>'+fs.readFileSync('dist/' + template + '/style.css')+'</style>'))
             .pipe(rename('v' + i + '.html'))
             .pipe(gulp.dest('dist/' + template))
             .on('end', function () {
@@ -157,8 +167,8 @@ if(!newTemp){
         res.sendFile(path.join(__dirname + '/dist/' + template + '/v0.html'));
     }).get('*', function (req, res) {
         res.sendFile(path.join(__dirname + '/dist/' + template + req.originalUrl + '.html'));
-    }).listen(1111, function () {
-        console.log('Server running at http://localhost:1111');
+    }).listen(7000, function () {
+        console.log('Server running at http://localhost:7000/v0');
     });
     
 }

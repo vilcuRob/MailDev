@@ -1,4 +1,5 @@
-var fs = require('fs');
+var fs = require('fs'),
+    mkdirp = require('mkdirp');
 
 function fileExists(filePath) {
     try {
@@ -20,15 +21,28 @@ module.exports = (function () {
 
                 var partial = [];
                 var partials = '';
+                var importcss= '';
 
                 // Get all partials used in the index.hbs file
                 var indexHbs = fs.readFileSync('./templates/' + template + '/index.hbs', 'utf-8').replace(/ /g, '');
                 // Read all the partials used inside hbs template
                 var indexHbs = indexHbs.split('{{>');
+                
+                
                 // Partial.push all the partial names used
                 for (var i = 1; i < indexHbs.length; i++) {
-                    partial.push(indexHbs[i].split('}}')[0]);
+                    var partialName = indexHbs[i].split('}}')[0];
+                    
+                    partial.push(partialName);
+                    
+                    importcss += '@import \'../../partials/'+partialName+'/'+partialName+'.scss\';\r\n';
                 }
+                
+                // Create partials.scss @import file with all the partials used
+                mkdirp('./templates/' + template + '/scss/', function () {
+                    fs.writeFile('./templates/' + template + '/scss/partials.scss', importcss);
+                });
+                
                 // Read the json files of all the partials used
                 for (var i = 0; i < partial.length; i++) {
                     partials += fs.readFileSync('./partials/' + partial[i] + '/' + partial[i] + '.json', 'utf-8') + ',';
