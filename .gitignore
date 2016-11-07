@@ -32,6 +32,7 @@ jspm_packages
 
 dist/**
 templates/**
+partials/**
 !partials/html_start
 !partials/html_end
 
