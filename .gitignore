@@ -30,8 +30,8 @@ build/Release
 node_modules
 jspm_packages
 
-dist/**
-templates/**
+!dist/**
+!templates/**
 partials/**
 !partials/html_start
 !partials/html_end
