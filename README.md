@@ -17,3 +17,18 @@ The data.json file inside the templates will override the partials json files (t
 
 ## Multiple versions<br />
 To add multiple versions to one template, add new objects inside the "versions" array of the data.json template file. For example if you create 3 empty objects inside the template json file, the script will generate 3 html files inside dist/ folder (v0.html, v1.html, v2.html) - To access and see this files live, use http://localhost:7000/v1 or /v2 and so on.
+
+<h1>The partials</h1>
+- To create a new partial, go inside the root /partials folder and add your partial directory (for example /banner). Inside the /banner directory add 3 files: banner.hbs, banner.json and banner.scss
+
+<br />
+1. banner.hbs - should contain your banner markup (for our example just add {{title}} inside it and save it)
+2. banner.json - should contain a variable called that holds an json object "banner": { "title":"My Banner Title" } 
+3. banner.scss - should contain the scss for this specific banner.hbs partial.
+
+!!Its important to follow this structure for your builder to work correctly!
+<hr />
+
+Back to our template folder inside the index.hbs file if we now include the new banner partial (using {{> banner}} to call it) we will see after gulp compilation is done, a v0.html file inside the dist/ folder that contains "My Banner Title". Because the banner.scss is a dependency to our template now, it will be adeed inside our template/scss/partials.scss file that is included in the style.scss file.
+
+
