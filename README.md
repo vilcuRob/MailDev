@@ -6,5 +6,3 @@ Develop cross-browser e-mail templates using inline css (scss), handlebars (hbs)
 
 <b>To run an existing template use</b> <br /> 
 <code>gulp --start template_name</code>
-
-
