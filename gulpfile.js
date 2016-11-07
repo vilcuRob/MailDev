@@ -85,7 +85,6 @@ if (!fs.existsSync('./templates/' + args.start)) {
                 });
             });
             
-
         } else {
             console.log('Template folder name already exists!');
             process.exit();
