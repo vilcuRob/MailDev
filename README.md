@@ -1,6 +1,9 @@
 # MailDev
 Develop cross-browser e-mail templates using inline css (scss), handlebars (hbs) and gulp
 
+### How to start
+<code>npm install -d</code>
+
 <b>To create a new template use</b> <br /> 
 <code>gulp --new template_name</code>
 
