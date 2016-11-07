@@ -25,8 +25,8 @@ To add multiple versions to one template, add new objects inside the "versions" 
 - To create a new partial, go inside the root /partials folder and add your partial directory (for example /banner). Inside the /banner directory add 3 files: banner.hbs, banner.json and banner.scss
 
 <br />
-1. banner.hbs - should contain your banner markup (for our example just add {{title}} inside it and save it)
-2. banner.json - should contain a variable called that holds an json object "banner": { "title":"My Banner Title" } 
+1. banner.hbs - should contain your banner markup (for our example just add {{title}} inside it and save it)<br />
+2. banner.json - should contain a variable called that holds an json object "banner": { "title":"My Banner Title" }<br />
 3. banner.scss - should contain the scss for this specific banner.hbs partial.
 
 <hr />
