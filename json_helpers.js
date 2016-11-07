@@ -65,7 +65,14 @@ module.exports = (function () {
             var files = fs.readdirSync(template_path);
             var partial_paths = [];
             for (var i = 0; i < files.length; i++) {
-                partial_paths.push('./partials/' + files[i] + '/');
+                
+                // Ignore files that contain . 
+                // Get only directories
+                if(files[i].indexOf('.') <= 0){
+                
+                    partial_paths.push('./partials/' + files[i] + '/');
+                    
+                }
             }
             return partial_paths;
 

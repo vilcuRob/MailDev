@@ -11,6 +11,7 @@ var express = require('express'),
     inlineCss = require('gulp-inline-css');
 
 var i = 0;
+var newTemp = false;
 
 // Checks if gulp is runned with new or start args
 if (args.new == undefined && args.start == undefined) {
@@ -58,12 +59,20 @@ if (!fs.existsSync('./templates/' + args.start)) {
 
             // New template name
             template = args.new;
+            newTemp = true;
 
             mkdirp('./templates/' + args.new + '/', function () {
-                fs.writeFile('./templates/' + args.new + '/style.scss', '');
-                fs.writeFile('./templates/' + args.new + '/data.json', '{\r\n\t"versions":\r\n\t\t[\r\n\t\t\t{\r\n\t\t\t\t\r\n\t\t\t}\r\n\t\t]\r\n}');
-                fs.writeFile('./templates/' + args.new + '/index.hbs', '');
+                fs.writeFile('./templates/' + args.new + '/style.scss', '', function(){
+                    fs.writeFile('./templates/' + args.new + '/data.json', '{\r\n\t"versions":\r\n\t\t[\r\n\t\t\t{\r\n\t\t\t\t\r\n\t\t\t}\r\n\t\t]\r\n}', function(){
+                        fs.writeFile('./templates/' + args.new + '/index.hbs', '', function(){
+                            console.log('Template was created! Use "gulp --start '+template+'" to preview the template.');
+                            process.exit();
+                        });
+                    });
+                });
+
             });
+            
 
         } else {
             console.log('Template folder name already exists!');
@@ -80,6 +89,8 @@ if (!fs.existsSync('./templates/' + args.start)) {
     
     var jh = require('./json_helpers');
     var totalPartials = jh.getJsonPartials(template).length;
+    
+    console.log(jh.getPartialsArrayPath())
 
     
     var buildHtml = function () {
@@ -139,11 +150,15 @@ if (!fs.existsSync('./templates/' + args.start)) {
  *
  */
 
-app.use(express.static(__dirname + '/'));
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/dist/' + template + '/v0.html'));
-}).get('*', function (req, res) {
-    res.sendFile(path.join(__dirname + '/dist/' + template + req.originalUrl + '.html'));
-}).listen(1111, function () {
-    console.log('Server running at http://localhost:1111');
-});
+if(!newTemp){
+
+    app.use(express.static(__dirname + '/'));
+    app.get('/', function (req, res) {
+        res.sendFile(path.join(__dirname + '/dist/' + template + '/v0.html'));
+    }).get('*', function (req, res) {
+        res.sendFile(path.join(__dirname + '/dist/' + template + req.originalUrl + '.html'));
+    }).listen(1111, function () {
+        console.log('Server running at http://localhost:1111');
+    });
+    
+}
