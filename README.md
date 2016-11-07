@@ -6,7 +6,7 @@ Develop cross-browser e-mail templates using inline css (scss), handlebars (hbs)
 
 <b>To run an existing template use</b> <br /> 
 <code>gulp --start template_name</code>
-<br /><br /> <br /> <br /> 
+<br /><br />
 
 ### How it works
 <h1>Templates folder</h1>
@@ -26,7 +26,10 @@ To add multiple versions to one template, add new objects inside the "versions" 
 2. banner.json - should contain a variable called that holds an json object "banner": { "title":"My Banner Title" } 
 3. banner.scss - should contain the scss for this specific banner.hbs partial.
 
-!!Its important to follow this structure for your builder to work correctly!
+<hr />
+```
+## Its important to follow this structure for your builder to work correctly!
+```
 <hr />
 
 Back to our template folder inside the index.hbs file if we now include the new banner partial (using {{> banner}} to call it) we will see after gulp compilation is done, a v0.html file inside the dist/ folder that contains "My Banner Title". Because the banner.scss is a dependency to our template now, it will be adeed inside our template/scss/partials.scss file that is included in the style.scss file.
