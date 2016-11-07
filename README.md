@@ -18,7 +18,7 @@ The data.json file inside the templates will override the partials json files (t
 ## Multiple versions<br />
 To add multiple versions to one template, add new objects inside the "versions" array of the data.json template file. For example if you create 3 empty objects inside the template json file, the script will generate 3 html files inside dist/ folder (v0.html, v1.html, v2.html) - To access and see this files live, use http://localhost:7000/v1 or /v2 and so on.
 
-<h1>The partials</h1>
+## The partials<br />
 - To create a new partial, go inside the root /partials folder and add your partial directory (for example /banner). Inside the /banner directory add 3 files: banner.hbs, banner.json and banner.scss
 
 <br />
