@@ -1,3 +1,39 @@
 body{
-    background-color:#fff;
+    margin:0 auto;
+}
+.ExternalClass {
+    width: 100%;
+}
+
+img, a{
+    outline:none;
+}
+
+.ExternalClass,
+.ExternalClass p,
+.ExternalClass span,
+.ExternalClass font,
+.ExternalClass td,
+.ExternalClass div {
+    line-height: 100%;
+}
+
+body {
+    -webkit-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+table td {
+    border-collapse: collapse;
+}
+
+a,
+a:link {
+    color: #0072c9;
+    text-decoration: underline;
 }

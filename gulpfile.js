@@ -141,7 +141,8 @@ if (!fs.existsSync('./templates/' + args.start)) {
 
         return gulp.src('templates/' + template + '/index.hbs')
             .pipe(handlebars(templateData, options))
-            .pipe(inject.after('<body>','<style>'+fs.readFileSync('dist/' + template + '/style.css')+'</style>'))
+            // Adds inline css
+            .pipe(inject.before('</head>','<style>'+fs.readFileSync('dist/' + template + '/style.css')+'</style>'))
             .pipe(rename('v' + i + '.html'))
             .pipe(gulp.dest('dist/' + template))
             .on('end', function () {

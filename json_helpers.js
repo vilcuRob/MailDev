@@ -10,6 +10,8 @@ function fileExists(filePath) {
     }
 }
 
+var import_css = true;
+
 module.exports = (function () {
 
     return {
@@ -35,14 +37,21 @@ module.exports = (function () {
                     var partialName = indexHbs[i].split('}}')[0];
                     
                     partial.push(partialName);
-                    
+                    // Css import all partials used in the template
                     importcss += '@import \'../../partials/'+partialName+'/'+partialName+'.scss\';\r\n';
                 }
                 
-                // Create partials.scss @import file with all the partials used
-                mkdirp('./templates/' + template + '/scss/', function () {
-                    fs.writeFile('./templates/' + template + '/scss/partials.scss', importcss);
-                });
+                if(import_css){
+                    // Create partials.scss @import file with all the partials used
+                    mkdirp('./templates/' + template + '/scss/', function () {
+                        fs.writeFile('./templates/' + template + '/scss/partials.scss', importcss);
+                    });
+                    // Import css only once at the start
+                    import_css = false;
+                    console.log('');
+                    console.log('Css partials successfully imported. If you add more partials, please restart your gulp task!');
+                    console.log('');
+                }
                 
                 // Read the json files of all the partials used
                 for (var i = 0; i < partial.length; i++) {
@@ -63,7 +72,6 @@ module.exports = (function () {
                     lodash.merge(data, partials, dataJson.versions[i]);
                     templateData.push(data);
                 }
-                console.log(templateData)
 
                 // Return object containing final 
                 // json to generate distribution
