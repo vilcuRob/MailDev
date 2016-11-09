@@ -1,5 +1,6 @@
 var fs = require('fs'),
-    mkdirp = require('mkdirp');
+    mkdirp = require('mkdirp'),
+    lodash = require('lodash');
 
 function fileExists(filePath) {
     try {
@@ -50,7 +51,7 @@ module.exports = (function () {
 
                 // Return an object containing all partials used
                 var partials = JSON.parse('{' + partials.substring(0, partials.length - 1) + '}');
-
+                
                 // Get template data.json 
                 var dataJson = JSON.parse(fs.readFileSync('./templates/' + template + '/data.json', 'utf-8'));
 
@@ -59,9 +60,10 @@ module.exports = (function () {
                 var templateData = new Array;
                 for (var i = 0; i < dataJson.versions.length; i++) {
                     var data = {};
-                    Object.assign(data, partials, dataJson.versions[i]);
+                    lodash.merge(data, partials, dataJson.versions[i]);
                     templateData.push(data);
                 }
+                console.log(templateData)
 
                 // Return object containing final 
                 // json to generate distribution
