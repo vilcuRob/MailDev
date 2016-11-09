@@ -15,13 +15,19 @@ var i = 0;
 var newTemp = false;
 
 // Checks if gulp is runned with new or start args
-if (args.new == undefined && args.start == undefined) {
-    console.log('Please use gulp --start template-folder-name or gulp --new template-folder-name')
+if (args.new == undefined && args.start == undefined && args.partial == undefined) {
+    console.log('Please use gulp --start template-folder-name or gulp --new template-folder-name or gulp --partial partial_name');
     process.exit();
 } else {
     // Default template to start args
     template = args.start;
+    
+    if (args.new == true || args.partial == true) {
+        console.log('Please use gulp --start template-folder-name or gulp --new template-folder-name or gulp --partial partial_name');
+        process.exit(); 
+    }
 }
+
 
 /******
  **
@@ -90,8 +96,31 @@ if (!fs.existsSync('./templates/' + args.start)) {
             process.exit();
         }
     } else {
-        console.log('Template folder name was not found!');
-        process.exit();
+        
+        if (args.partial !== undefined) {
+            // Check if partial exists
+            if (!fs.existsSync('./partials/' + args.partial)) {
+                mkdirp('./partials/' + args.partial + '/', function () {
+                    fs.writeFile('./partials/' + args.partial + '/'+args.partial+'.hbs', '', function(){
+                        fs.writeFile('./partials/' + args.partial + '/'+args.partial+'.scss', '', function(){
+                            fs.writeFile('./partials/' + args.partial + '/'+args.partial+'.json', '', function(){
+                                console.log('Partial ' + args.partial + ' was successfully created!');
+                                process.exit(); 
+                            });
+                        });
+                    });
+                });
+            }else{
+                console.log('A partial with this name already exists!');
+                process.exit();       
+            }
+        }else{
+        
+            console.log('Template folder name was not found!');
+            process.exit();
+            
+        }
+        
     }
 } else {
 
