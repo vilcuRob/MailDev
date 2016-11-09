@@ -47,4 +47,8 @@ Back to our template folder inside the index.hbs file if we now include the new 
 2. Array's are not mergeable inside the json files. Use fixed values for inheritance overriding.
 3. Sometimes the .hbs -> html compilation task fails and prints some random html. Workaround is to compile again using ```gulp --start``` command. 
 
+## TODO:<br />
+
+- Most important: Find or build new inliner that handles multiple classes and merges all style rules.
+
 
