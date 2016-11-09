@@ -41,4 +41,8 @@ To add multiple versions to one template, add new objects inside the "versions" 
 
 Back to our template folder inside the index.hbs file if we now include the new banner partial (using {{> banner}} to call it) we will see after gulp compilation is done, a v0.html file inside the dist/ folder that contains "My Banner Title". Because the banner.scss is a dependency to our template now, it will be adeed inside our template/scss/partials.scss file that is included in the style.scss file.
 
+## Issues found so far<br />
+
+1. An element can only have one styles inherited from one class. If two classes are present or 2 instances of the same class are present in the scss file, the inliner compiler will not merge them, it will ignore all of then and just write the last one that it sees.
+
 
