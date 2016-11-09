@@ -103,7 +103,7 @@ if (!fs.existsSync('./templates/' + args.start)) {
                 mkdirp('./partials/' + args.partial + '/', function () {
                     fs.writeFile('./partials/' + args.partial + '/'+args.partial+'.hbs', '', function(){
                         fs.writeFile('./partials/' + args.partial + '/'+args.partial+'.scss', '', function(){
-                            fs.writeFile('./partials/' + args.partial + '/'+args.partial+'.json', '', function(){
+                            fs.writeFile('./partials/' + args.partial + '/'+args.partial+'.json', '"'+args.partial+'":\r\n\t\t{\r\n\t\t\t\r\n\t\t}', function(){
                                 console.log('Partial ' + args.partial + ' was successfully created!');
                                 process.exit(); 
                             });
@@ -115,12 +115,9 @@ if (!fs.existsSync('./templates/' + args.start)) {
                 process.exit();       
             }
         }else{
-        
             console.log('Template folder name was not found!');
             process.exit();
-            
         }
-        
     }
 } else {
 
