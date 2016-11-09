@@ -26,7 +26,7 @@ To add multiple versions to one template, add new objects inside the "versions" 
 <b>To access and see this files live, use <a href="http://localhost:7000/v0">http://localhost:7000/v0</a> or /v1 and so on.</b>
 
 ## The partials<br />
-- To create a new partial, go inside the root /partials folder and add your partial directory (for example /banner). Inside the /banner directory add 3 files: banner.hbs, banner.json and banner.scss
+- To create a new partial, use: gulp --partial partial_name; Now go inside the root /partials folder and you will see your partial directory (for example /banner). Inside the /banner directory you now 3 files: banner.hbs, banner.json and banner.scss
 
 <br />
 1. banner.hbs - should contain your banner markup (for our example just add {{title}} inside it and save it)<br />
