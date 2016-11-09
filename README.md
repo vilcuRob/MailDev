@@ -45,5 +45,6 @@ Back to our template folder inside the index.hbs file if we now include the new 
 
 1. An element can only have one styles inherited from one class. If two classes are present or 2 instances of the same class are present in the scss file, the inliner compiler will not merge them, it will ignore all of then and just write the last one that it sees.
 2. Array's are not mergeable inside the json files. Use fixed values for inheritance overriding.
+3. Sometimes the .hbs -> html compilation task fails and prints some random html. Workaround is to compile again using ```gulp --start``` command. 
 
 
